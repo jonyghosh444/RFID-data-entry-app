@@ -1,0 +1,11 @@
+frontCamImage,numberFrontCam,vehicleNumberUser,vehicleTypeUser,vehicleRfid
+21.jpg,-1,-1,NULL,42 52 54 41 FF 37 14 0C 06 F0 00 01 
+22.jpg,২১ং০৯১২,-1,NULL,42 52 54 41 FF 02 0A 15 03 90 00 01 
+23.jpg,-1,-1,Microbus,42 52 54 41 FF 02 19 13 1C 6A 00 01 
+24.jpg,-1,-1,NULL,42 52 54 41 FF 02 19 35 1A A9 00 01 
+25.jpg,-1,-1,Medium Truck,42 52 54 41 FF 02 0F 23 1E AC 00 01 
+26.jpg,-1,-1,4 Wheelers,42 52 54 41 FF 14 0A 0B 04 C3 00 01 
+27.jpg,ঢুকটরো,-1,Microbus,42 52 54 41 FF 37 14 0C 03 3B 00 01 
+28.jpg,-1,-1,Motorcycle,42 52 54 41 FF 02 0A 13 0B 31 00 01 
+29.jpg,-1,-1,NULL,42 52 54 41 FF 02 09 14 24 B7 00 01 
+30.jpg,,-1,Microbus,42 52 54 41 FF 02 13 32 00 DC 00 01 

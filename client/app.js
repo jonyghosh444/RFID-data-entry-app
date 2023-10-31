@@ -26,7 +26,8 @@ document.addEventListener('DOMContentLoaded', function () {
         newPage.innerHTML = '';
 
         // Load the CSV file
-        fetch(`${dataFolder}.csv`)
+        // fetch(`/images/${dataFolder}.csv`)
+        fetch(`/${dataFolder}.csv`)
             .then((response) => response.text())
             .then((csv) => {
                 const lines = csv.split('\n');
@@ -39,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const tbody = document.createElement('tbody');
 
                 // Create the table header with specified columns
-                const columnsToDisplay = ['Image', 'frontCamImage', 'numberFrontCam', 'numberBackCam', 'vehicleNumberUser', 'vehicleTypeUser', 'vehicleRfid'];
+                const columnsToDisplay = ['Image', 'numberFrontCam', 'numberBackCam', 'vehicleNumberUser', 'vehicleTypeUser', 'vehicleRfid'];
                 const headerRow = document.createElement('tr');
                 columnsToDisplay.forEach((column) => {
                     const th = document.createElement('th');
@@ -50,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 table.appendChild(thead);
 
                 // Create table rows with image and information
-                data.forEach((line, index) => {
+                data.forEach((line) => {
                     const values = line.split(',');
                     const imageName = values[headers.indexOf('frontCamImage')];
 
@@ -59,15 +60,15 @@ document.addEventListener('DOMContentLoaded', function () {
                     // Add image cell with a resized image
                     const imageCell = document.createElement('td');
                     const image = document.createElement('img');
-                    image.src = `${dataFolder}/${imageName}`;
+                    image.src = `/${dataFolder}/${imageName}`;
                     image.style.maxWidth = '100px'; // Adjust the maximum image width
                     imageCell.appendChild(image);
                     row.appendChild(imageCell);
 
                     // Add other information cells
-                    columnsToDisplay.slice(1).forEach((column) => {
+                    columnsToDisplay.forEach((column) => {
                         const cell = document.createElement('td');
-                        if (column === 'vehicleNumberUser') {
+                        if (column === 'numberFrontCam') {
                             // Create an editable input field for vehicleNumberUser
                             const input = document.createElement('input');
                             input.type = 'text';
@@ -101,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const updatedData = {
             [imageName]: updatedValue,
         };
-     
+
         // Send a POST request to the server to update the CSV
         fetch('/update-csv', {
             method: 'POST',
@@ -122,5 +123,5 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             })
             .catch((error) => console.error('Error updating CSV on the server:', error));
-     }
+    }
 });
