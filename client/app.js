@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // Hide the previous imageInfo and show the new page
         document.getElementById('imageInfo').style.display = 'none';
         const newPage = document.getElementById('newPage');
-        newPage.style display = 'block';
+        newPage.style.display = 'block';
 
         // Clear any previous data from the new page
         newPage.innerHTML = '';
