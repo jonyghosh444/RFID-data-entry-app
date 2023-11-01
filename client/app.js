@@ -1,122 +1,67 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const dataButtons = {
-        data1Button: 'data1',
-        data2Button: 'data2',
-        data3Button: 'data3',
-        data4Button: 'data4',
-    };
+    const imageTable = document.getElementById('imageTable');
+    const imageTableBody = document.getElementById('imageTableBody');
+    const prevButton = document.getElementById('prevButton');
+    const nextButton = document.getElementById('nextButton');
+    let currentPage = 1;
+    const itemsPerPage = 10;
+    let data = [];
 
-    for (const buttonId in dataButtons) {
-        if (dataButtons.hasOwnProperty(buttonId)) {
-            const button = document.getElementById(buttonId);
-            button.addEventListener('click', function () {
-                const dataFolder = dataButtons[buttonId];
-                displayImagesAndInfo(dataFolder);
-            });
-        }
-    }
-
-    function displayImagesAndInfo(dataFolder) {
-        // Hide the previous imageInfo and show the new page
-        document.getElementById('imageInfo').style.display = 'none';
-        const newPage = document.getElementById('newPage');
-        newPage.style.display = 'block';
-
-        // Clear any previous data from the new page
-        newPage.innerHTML = '';
-
-        // Load the CSV file
-        // fetch(`/images/${dataFolder}.csv`)
-        fetch(`/../csv/${dataFolder}.csv`)
+    function displayImagesAndInfo() {
+        // Fetch the CSV file
+        fetch('./csv/data.csv')
             .then((response) => response.text())
             .then((csv) => {
-                const lines = csv.split('\n');
-                const headers = lines[0].split(',');
-                const data = lines.slice(1,-1);
-                
-
-                // Create a table element
-                const table = document.createElement('table');
-                const thead = document.createElement('thead');
-                const tbody = document.createElement('tbody');
-
-                // Create the table header with specified columns
-                const columnsToDisplay = ['Image', 'numberFrontCam', 'numberBackCam', 'vehicleNumberUser', 'vehicleTypeUser', 'vehicleRfid'];
-                const headerRow = document.createElement('tr');
-                columnsToDisplay.forEach((column) => {
-                    const th = document.createElement('th');
-                    th.textContent = column;
-                    headerRow.appendChild(th);
-                });
-                thead.appendChild(headerRow);
-                table.appendChild(thead);
-
-                // Create table rows with image and information
-                
-                data.forEach((line) => {
-                    const values = line.split(',');
-                    const imageName = values[headers.indexOf('frontCamImage')];
-
-                    const row = document.createElement('tr');
-
-                    // Add image cell with a resized image
-                    const imageCell = document.createElement('td');
-                    const image = document.createElement('img');
-                    image.src = `/${dataFolder}/${imageName}`;
-                    image.style.maxWidth = '100px'; // Adjust the maximum image width
-                    imageCell.appendChild(image);
-                    row.appendChild(imageCell);
-
-                    // Add other information cells
-                    columnsToDisplay.forEach((column) => {
-                        const cell = document.createElement('td');
-                        if (column === 'numberFrontCam') {
-                            // Create an editable input field for vehicleNumberUser
-                            const input = document.createElement('input');
-                            input.type = 'text';
-                            input.value = values[headers.indexOf(column)];
-                            // Add an event listener to handle changes to the input field
-                            input.addEventListener('change', function () {
-                                // Save the changes to the server (to be implemented)
-                                saveChangesToServer(dataFolder, imageName, input.value);
-                            });
-                            cell.appendChild(input);
-                        } else {
-                            cell.textContent = values[headers.indexOf(column)];
-                        }
-                        row.appendChild(cell);
-                    });
-
-                    tbody.appendChild(row);
-                });
-
-                table.appendChild(tbody);
-
-                // Append the table to the new page
-                newPage.appendChild(table);
+                data = csv.split('\n').map(line => line.split(','));
+                data = data.slice(1, -1);
+                updateTable(currentPage);
             })
             .catch((error) => console.error(error));
     }
 
-    // Function to save changes to the server (to be implemented)
-    function saveChangesToServer(dataFolder, imageName, updatedValue) {
-        // Create an object with the updated data
-        const updatedData = {
-            [imageName]: updatedValue,
-        };
+    function updateTable(page) {
+        const start = (page - 1) * itemsPerPage;
+        const end = start + itemsPerPage;
+        const tableFragment = document.createDocumentFragment();
 
-        // Send a POST request to the server to update the CSV
-        // fetch('/update-csv', {
-        fetch(`/updateCsv`, {
+        for (let i = start; i < end && i < data.length; i++) {
+            const row = document.createElement('tr');
+            const [frontCamImage, numberFrontCam, numberBackCam, vehicleNumberUser, vehicleTypeUser, vehicleRfid] = data[i];
+
+            // Create an image element to display the image
+            const imageCell = document.createElement('td');
+            const image = document.createElement('img');
+            image.src = `./images/${frontCamImage}`; // Assuming images are in the 'images' directory
+            image.style.maxWidth = '100px'; // Adjust the maximum image width
+            imageCell.appendChild(image);
+            row.appendChild(imageCell);
+
+            row.innerHTML += `
+                <td>${frontCamImage}</td>
+                <td>${numberFrontCam}</td>
+                <td><input type="text" value="${numberFrontCam}" data-index="${i}"></td>
+                <td>${numberBackCam}</td>
+                <td>${vehicleNumberUser}</td>
+                <td>${vehicleTypeUser}</td>
+                <td>${vehicleRfid}</td>
+            `;
+            tableFragment.appendChild(row);
+        }
+
+        imageTableBody.innerHTML = '';
+        imageTableBody.appendChild(tableFragment);
+    }
+
+    function updateCsv(index, newValue) {
+        data[index][1] = newValue;
+        const updatedCsv = data.map(row => row.join(',')).join('\n');
+
+        fetch('/updateCsv', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'text/plain', // Use 'text/plain' for plain text data
             },
-            body: JSON.stringify({
-                dataFolder,
-                imageName,
-                updatedValue,
-            }),
+            body: updatedCsv,
         })
             .then((response) => {
                 if (response.status === 200) {
@@ -126,6 +71,29 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             })
             .catch((error) => console.error('Error updating CSV on the server:', error));
-
     }
+
+    imageTable.addEventListener('input', (e) => {
+        if (e.target.tagName === 'INPUT') {
+            const index = e.target.getAttribute('data-index');
+            const newValue = e.target.value;
+            updateCsv(index, newValue);
+        }
+    });
+
+    prevButton.addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage--;
+            updateTable(currentPage);
+        }
+    });
+
+    nextButton.addEventListener('click', () => {
+        if (currentPage < Math.ceil(data.length / itemsPerPage)) {
+            currentPage++;
+            updateTable(currentPage);
+        }
+    });
+
+    displayImagesAndInfo();
 });

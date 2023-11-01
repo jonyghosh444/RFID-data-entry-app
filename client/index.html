@@ -2,17 +2,31 @@
 <html>
 <head>
     <title>Image Viewer</title>
+    <link rel="stylesheet" type="text/css" href="./client/styles.css">
 </head>
 <body>
     <h1>Image Viewer</h1>
-    <button id="data1Button">Data 1</button>
-    <button id="data2Button">Data 2</button>
-    <button id="data3Button">Data 3</button>
-    <button id="data4Button">Data 4</button>
     <div id="imageInfo">
-        <!-- Image, other information, and editable input field will be displayed here -->
+        <table id="imageTable">
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>frontCamImage</th>
+                    <th>numberFrontCam</th>
+                    <th>updatedNumber</th>
+                    <th>numberBackCam</th>
+                    <th>vehicleNumberUser</th>
+                    <th>vehicleTypeUser</th>
+                    <th>vehicleRfid</th>
+                </tr>
+            </thead>
+            <tbody id="imageTableBody"></tbody>
+        </table>
+        <div id="pagination">
+            <button id="prevButton">Previous</button>
+            <button id="nextButton">Next</button>
+        </div>
     </div>
-    <div id="newPage" style="display: none;"></div>
-    <script src="app.js"></script>
+    <script src="./client/app.js"></script>
 </body>
 </html>
