@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>CSV Data Editor</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>CSV Data Editor</h1>
+    <table id="csvTable">
+        <!-- Table content will be inserted here -->
+    </table>
+    <script>
+        // Function to fetch and display CSV data as a table
+        async function fetchCSVData() {
+            const response = await fetch('/data');
+            const data = await response.json();
+
+            const csvTable = document.getElementById('csvTable');
+            csvTable.innerHTML = '';
+
+            // Create the table header
+            const headerRow = document.createElement('tr');
+            for (const header of Object.keys(data[0])) {
+                const th = document.createElement('th');
+                th.textContent = header;
+                headerRow.appendChild(th);
+            }
+            csvTable.appendChild(headerRow);
+
+            // Create table rows with data
+            for (const row of data) {
+                const tableRow = document.createElement('tr');
+                for (const key in row) {
+                    const cell = document.createElement('td');
+                    if (key === 'frontCamImage') {
+                        const img = document.createElement('img');
+                        img.src = row[key];
+                        img.width = 100;
+                        cell.appendChild(img);
+                    } else if (key === 'numberFrontCam') {
+                        const input = document.createElement('input');
+                        input.type = 'text';
+                        input.value = row[key];
+                        input.addEventListener('change', () => updateCSV(row, key, input.value));
+                        cell.appendChild(input);
+                    } else {
+                        cell.textContent = row[key];
+                    }
+                    tableRow.appendChild(cell);
+                }
+                csvTable.appendChild(tableRow);
+            }
+        }
+
+        // Function to update the CSV data
+        async function updateCSV(row, key, value) {
+            row[key] = value;
+            const response = await fetch('/update', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(row)
+            });
+            if (response.status === 200) {
+                console.log('CSV data updated successfully.');
+            } else {
+                console.error('Failed to update CSV data.');
+            }
+        }
+
+        fetchCSVData();
+    </script>
+</body>
+
+</html>
