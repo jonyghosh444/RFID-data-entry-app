@@ -1,78 +1,56 @@
 const express = require('express');
 const fs = require('fs');
-const csv = require('csv-parser');
 const bodyParser = require('body-parser');
 const app = express();
 const path = require('path');
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-
+app.use(bodyParser.text());
 
 // Serve the HTML page
-app.get('/index', (req, res) => {
+app.get('/', (req, res) => {
     res.sendFile(path.resolve(__dirname + '/../client/index.html'));
 });
 
-// Serve images from the appropriate data folder
-app.use('/:dataFolder/:imageName', (req, res) => {
-    const { dataFolder, imageName } = req.params;
-    const imagePath = `../${dataFolder}/${imageName}`;
+app.use(bodyParser.text({ type: 'text/plain' })); // Specify 'text/plain' type
 
-    // Check if the image file exists
-    if (fs.existsSync(imagePath)) {
-        // Serve the image
-        res.sendFile(path.resolve(__dirname + '/' + imagePath));
-    } else {
-        // If the image doesn't exist, you can send a 404 response
-        res.status(404).send('Image not found');
-    }
-});
-
-// Define a route to handle updates
+// Define a route to handle CSV updates
 app.post('/updateCsv', (req, res) => {
-    const { dataFolder, imageName, updatedValue } = req.body;
-    const csvFilePath = `../csv/${dataFolder}.csv`;
-    const updatedData = [];
+    const updatedCsv = req.body;
+    const csvFilePath = 'data.csv';
 
-    // Read the CSV file
-    const rows = [];
-    fs.createReadStream(csvFilePath)
-        .pipe(csv())
-        .on('data', (row) => {
-            rows.push(row);
-        })
-        .on('end', () => {
-            // Update the data in memory
-            for (const row of rows) {
-                if (row.frontCamImage === imageName) {
-                    row.numberFrontCam = updatedValue;
+    fs.readFile(csvFilePath, 'utf8', (err, data) => {
+        if (err) {
+            console.error('Error reading CSV:', err);
+            res.status(500).send('Error reading CSV');
+        } else {
+            // Update the existing CSV data with the new content
+            const updatedData = data + '\n' + updatedCsv;
+
+            // Write the updated data back to the same file
+            fs.writeFile(csvFilePath, updatedData, (writeErr) => {
+                if (writeErr) {
+                    console.error('Error updating CSV:', writeErr);
+                    res.status(500).send('Error updating CSV');
+                } else {
+                    res.status(200).send('CSV file updated successfully');
                 }
-                updatedData.push(row);
-            }
-
-            // Write the header to the CSV file
-            const header = 'frontCamImage,numberFrontCam,numberBackCam,vehicleNumberUser,vehicleTypeUser,vehicleRfid\n';
-            fs.writeFileSync(csvFilePath, header);
-
-            // Append the updated data to the CSV file
-            for (const row of updatedData) {
-                const rowStr = `${row.frontCamImage},${row.numberFrontCam},${row.numberBackCam},${row.vehicleNumberUser},${row.vehicleTypeUser},${row.vehicleRfid}\n`;
-                fs.appendFileSync(csvFilePath, rowStr);
-            }
-
-            res.status(200).send('CSV file updated successfully');
-        });
-    
+            });
+        }
+    });
 });
-
-
 
 // Serve your HTML page (modify this path as needed)
-app.use(express.static(path.resolve(__dirname + '/../client')));
+// Serve static files from the 'client' directory
+app.use('/client', express.static(path.resolve(__dirname, '../client')));
+
+// Serve csv file
+app.use('/csv', express.static(path.resolve(__dirname, '../csv')));
+
+// Serve Images file 
+app.use('/images', express.static(path.resolve(__dirname, '../images')));
 
 // Start the server
-const port = 9000; // Change this to your desired port
+const port = 6060; // Change this to your desired port
 app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+    console.log(`Server is running on port http://localhost:${port}`);
 });
