@@ -54,8 +54,16 @@
                     if (key === 'frontCamImage') {
                         const img = document.createElement('img');
                         img.src = row[key];
-                        img.width = 100;
+                        img.width = 400;
                         cell.appendChild(img);
+                        img.addEventListener('dblclick', () => {
+                            img.style.transform = 'scale(3)';
+                            img.style.transition = 'transform 0.5s';
+                        });
+                        img.addEventListener('click', () => {
+                            img.style.transform = 'scale(1)';
+                            img.style.transition = 'transform 0.5s';
+                        });
                     } else if (key === 'numberFrontCam') {
                         const input = document.createElement('input');
                         input.type = 'text';
