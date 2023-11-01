@@ -27,12 +27,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Load the CSV file
         // fetch(`/images/${dataFolder}.csv`)
-        fetch(`/${dataFolder}.csv`)
+        fetch(`/../csv/${dataFolder}.csv`)
             .then((response) => response.text())
             .then((csv) => {
                 const lines = csv.split('\n');
                 const headers = lines[0].split(',');
-                const data = lines.slice(1);
+                const data = lines.slice(1,-1);
+                
 
                 // Create a table element
                 const table = document.createElement('table');
@@ -51,6 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 table.appendChild(thead);
 
                 // Create table rows with image and information
+                
                 data.forEach((line) => {
                     const values = line.split(',');
                     const imageName = values[headers.indexOf('frontCamImage')];
@@ -104,7 +106,8 @@ document.addEventListener('DOMContentLoaded', function () {
         };
 
         // Send a POST request to the server to update the CSV
-        fetch('/update-csv', {
+        // fetch('/update-csv', {
+        fetch(`/updateCsv`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -123,5 +126,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             })
             .catch((error) => console.error('Error updating CSV on the server:', error));
+
     }
 });

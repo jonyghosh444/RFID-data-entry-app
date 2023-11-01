@@ -1,0 +1,11 @@
+frontCamImage,numberFrontCam,numberBackCam,vehicleNumberUser,vehicleTypeUser,vehicleRfid
+11.jpg,২২-১১০০,-1,221100,Sedan Car,42 52 54 41 FF 02 0F 16 04 4C 00 01 
+12.jpg,-1,-1,1,Big Bus,42 52 54 41 FF 02 1E 0F 25 AD 00 01 
+13.jpg,-1,-1,cheking,Heavy Truck,42 52 54 41 FF 02 18 29 01 F7 00 01 
+14.jpg,,-1,1,Microbus,42 52 54 41 FF 06 14 0C 16 DB 00 01 
+15.jpg,-1,-1,1,Mini Truck,42 52 54 41 FF 02 0B 0B 13 BD 00 01 
+16.jpg,-1,-1,1,Medium Truck,42 52 54 41 FF 08 0B 0B 04 4B 00 01 
+17.jpg,৩০-৮৫8০,-1,308540,Sedan Car,42 52 54 41 FF 02 0F 25 21 5C 00 01 
+18.jpg,-1,-1,NULL,NULL,42 52 54 41 FF 02 13 15 26 AA 00 01 
+19.jpg,-1,-1,1,Medium Truck,42 52 54 41 FF 02 13 3E 04 4E 00 01 
+20.jpg,-1,-1,1,Mini Bus/Coster,42 52 54 41 FF 02 1D 0E 00 98 00 01 

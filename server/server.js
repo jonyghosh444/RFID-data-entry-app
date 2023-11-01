@@ -8,21 +8,6 @@ const path = require('path');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// app.get('/list-files', (req, res) => {
-//     // Get the path to your project directory
-//     const projectDirectoryPath = path.join(__dirname, '..'); // Go up one level to reach the project directory
-
-//     // Read the contents of the project directory
-//     fs.readdir(projectDirectoryPath, (err, files) => {
-//         if (err) {
-//             console.error(err);
-//             res.status(500).send('Internal Server Error');
-//         } else {
-//             // Send the list of files and folders as a response
-//             res.json(files);
-//         }
-//     });
-// });
 
 // Serve the HTML page
 app.get('/index', (req, res) => {
@@ -45,9 +30,9 @@ app.use('/:dataFolder/:imageName', (req, res) => {
 });
 
 // Define a route to handle updates
-app.post('/update-csv', (req, res) => {
+app.post('/updateCsv', (req, res) => {
     const { dataFolder, imageName, updatedValue } = req.body;
-    const csvFilePath = `../${dataFolder}.csv`;
+    const csvFilePath = `../csv/${dataFolder}.csv`;
     const updatedData = [];
 
     // Read the CSV file
@@ -61,13 +46,14 @@ app.post('/update-csv', (req, res) => {
             // Update the data in memory
             for (const row of rows) {
                 if (row.frontCamImage === imageName) {
-                    row.vehicleNumberUser = updatedValue;
+                    row.numberFrontCam = updatedValue;
                 }
                 updatedData.push(row);
             }
 
             // Write the header to the CSV file
-            fs.writeFileSync(csvFilePath, 'frontCamImage,numberFrontCam,numberBackCam,vehicleNumberUser,vehicleTypeUser,vehicleRfid\n');
+            const header = 'frontCamImage,numberFrontCam,numberBackCam,vehicleNumberUser,vehicleTypeUser,vehicleRfid\n';
+            fs.writeFileSync(csvFilePath, header);
 
             // Append the updated data to the CSV file
             for (const row of updatedData) {
@@ -77,7 +63,10 @@ app.post('/update-csv', (req, res) => {
 
             res.status(200).send('CSV file updated successfully');
         });
+    
 });
+
+
 
 // Serve your HTML page (modify this path as needed)
 app.use(express.static(path.resolve(__dirname + '/../client')));
