@@ -5,7 +5,9 @@ const csv = require('csv-parser');
 const app = express();
 const path = require('path');
 
-app.use(bodyParser.text());
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 // Serve the HTML page
 app.get('/', (req, res) => {
@@ -14,33 +16,11 @@ app.get('/', (req, res) => {
 
 app.use(bodyParser.text({ type: 'text/plain' })); // Specify 'text/plain' type
 
-// Define a route to handle CSV updates
-// app.post('/updateCsv', (req, res) => {
-//     const updatedCsv = req.body;
-//     const csvFilePath = 'data.csv';
-
-//     fs.readFile(csvFilePath, 'utf8', (err, data) => {
-//         if (err) {
-//             console.error('Error reading CSV:', err);
-//             res.status(500).send('Error reading CSV');
-//         } else {
-//             // Update the existing CSV data with the new content
-//             const updatedData = data + '\n' + updatedCsv;
-
-//             // Write the updated data back to the same file
-//             fs.writeFile(csvFilePath, updatedData, (writeErr) => {
-//                 if (writeErr) {
-//                     console.error('Error updating CSV:', writeErr);
-//                     res.status(500).send('Error updating CSV');
-//                 } else {
-//                     res.status(200).send('CSV file updated successfully');
-//                 }
-//             });
-//         }
-//     });
-// });
 app.post('/updateCsv', (req, res) => {
-    const { imageName, updatedValue } = req.body;
+    const { imageName, inputColumn, updatedValue } = req.body;
+    console.log(imageName);
+    console.log(inputColumn);
+    console.log(updatedValue);
     const csvFilePath = '../csv/data.csv';
     const updatedData = [];
 
@@ -53,32 +33,45 @@ app.post('/updateCsv', (req, res) => {
         })
         .on('end', () => {
             // Update the data in memory
-            for (const row of rows) {
-                if (row.frontCamImage === imageName) {
-                    row.numberFrontCam = updatedValue;
+            if (inputColumn === "metroText"){
+                for (const row of rows) {
+                    if (row.frontCamImage === imageName) {
+                        row.metroText = updatedValue;
+                    }
+                    updatedData.push(row);
                 }
-                updatedData.push(row);
+            }else if(inputColumn==="serial"){
+                for (const row of rows) {
+                    if (row.frontCamImage === imageName) {
+                        row.serial = updatedValue;
+                    }
+                    updatedData.push(row);
+                }
+            }else if(inputColumn==="vehicleNumber"){
+                for (const row of rows) {
+                    if (row.frontCamImage === imageName) {
+                        row.numberFrontCam = updatedValue;
+                    }
+                    updatedData.push(row);
+                }
             }
 
+
             // Write the header to the CSV file
-            const header = 'frontCamImage,numberFrontCam,numberBackCam,vehicleNumberUser,vehicleTypeUser,vehicleRfid\n';
+            const header = 'frontCamImage,numberFrontCam,numberBackCam,vehicleNumberUser,vehicleTypeUser,vehicleRfid,metroText,serial\n';
             fs.writeFileSync(csvFilePath, header);
+            console.log(updatedData);
 
             // Append the updated data to the CSV file
             for (const row of updatedData) {
-                const rowStr = `${row.frontCamImage},${row.numberFrontCam},${row.numberBackCam},${row.vehicleNumberUser},${row.vehicleTypeUser},${row.vehicleRfid}\n`;
+                const rowStr = `${row.frontCamImage},${row.numberFrontCam},${row.numberBackCam},${row.vehicleNumberUser},${row.vehicleTypeUser},${row.vehicleRfid},${row.metroText},${row.serial}\n`;
                 fs.appendFileSync(csvFilePath, rowStr);
             }
 
             res.status(200).send('CSV file updated successfully');
         });
-    
+
 });
-
-
-
-
-
 
 // Serve your HTML page (modify this path as needed)
 // Serve static files from the 'client' directory
