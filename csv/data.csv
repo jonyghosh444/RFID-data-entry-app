@@ -39,7 +39,7 @@ frontCamImage,numberFrontCam,numberBackCam,vehicleNumberUser,vehicleTypeUser,veh
 38.jpg,231423,,209614,Microbus,42 52 54 41 FF 02 19 14 07 16 00 01 
 39.jpg,231423,-1,1,NULL,42 52 54 41 FF 02 0F 22 1E 56 00 01 
 40.jpg,34123431,-1,232323,NULL,42 52 54 41 FF 02 0A 0F 13 86 00 01 
-
+undefined,undefined,undefined,undefined,undefined,undefined
 1.jpg,132,-1,232323,Mini Truck,42 52 54 41 FF 02 0A 15 09 53 00 01 
 2.jpg,234234d,-1,209614,Sedan Car,42 52 54 41 FF 02 0F 14 25 8E 00 01 
 3.jpg,54234,-1,1,Sedan Car,42 52 54 41 FF 02 0F 22 1E 56 00 01 

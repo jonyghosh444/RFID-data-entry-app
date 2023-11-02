@@ -52,7 +52,28 @@ document.addEventListener('DOMContentLoaded', function () {
         imageTableBody.appendChild(tableFragment);
     }
 
-    function updateCsv(index, newValue) {
+    // function updateCsv(index, newValue) {
+    //     data[index][1] = newValue;
+    //     const updatedCsv = data.map(row => row.join(',')).join('\n');
+
+    //     fetch('/updateCsv', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'text/plain', // Use 'text/plain' for plain text data
+    //         },
+    //         body: updatedCsv,
+    //     })
+    //         .then((response) => {
+    //             if (response.status === 200) {
+    //                 console.log('CSV updated successfully on the server.');
+    //             } else {
+    //                 console.error('Failed to update CSV on the server.');
+    //             }
+    //         })
+    //         .catch((error) => console.error('Error updating CSV on the server:', error));
+    // }
+
+    function updateCsv(imageName, newValue) {
         data[index][1] = newValue;
         const updatedCsv = data.map(row => row.join(',')).join('\n');
 
