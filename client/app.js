@@ -42,13 +42,6 @@ document.addEventListener('DOMContentLoaded', function () {
             imageCell.appendChild(image);
             row.appendChild(imageCell);
 
-
-            // Create an input element with a data attribute
-            // const imageNameCell = document.createElement('td');
-            // imageNameCell.textContent = frontCamImage;
-            // row.appendChild(imageNameCell);
-
-
             // ANPR Detected Vehicle Number 
             const numberFrontCamCell = document.createElement('td');
             const vehicleNumberTxt = document.createElement('span');
@@ -57,42 +50,127 @@ document.addEventListener('DOMContentLoaded', function () {
             row.appendChild(numberFrontCamCell)
 
 
-            // // Vehicle Metro Text
-            // const inputCell = document.createElement('td');
-            // const input = document.createElement('input');
-            // input.type = 'text';
-            // input.value = numberFrontCam;
-            // input.setAttribute('data-index', i);
-            // input.setAttribute('data-image-name', frontCamImage);
-            // inputCell.appendChild(input);
-            // row.appendChild(inputCell);
-
-
             //Vehicle Metro Text 
             const inputMetro = document.createElement('td');
-            const inputMetroText = document.createElement('input');
-            inputMetroText.type = 'text';
-            inputMetroText.value = metroText;
-            inputMetroText.style.height = '40px';
-            const metroTxt = "metroText"
-            inputMetroText.setAttribute('inputColumn', metroTxt);
-            inputMetroText.setAttribute('data-index', i);
-            inputMetroText.setAttribute('data-image-name', frontCamImage);
-            inputMetro.appendChild(inputMetroText);
+            const selectMetroText = document.createElement('select');
+            const metroTxt = "metroText";
+            selectMetroText.setAttribute('inputColumn', metroTxt);
+            selectMetroText.setAttribute('data-index', i);
+            selectMetroText.setAttribute('data-image-name', frontCamImage);
+            
+            // Define an array of option values
+            const metroOptions = ['ঢাকা মেট্রো',
+            'চট্ট মেট্রো',
+            'খুলনা মেট্রো',
+            'রাজশাহী মেট্রো',
+            'সিলেট মেট্রো',
+            'বরিশাল মেট্রো',
+            'রংপুর মেট্রো',
+            'ঢাকা',
+            'নরসিংদী',
+            'গাজীপুর',
+            'নারায়ণগঞ্জ',
+            'টাঙ্গাইল',
+            'কিশোরগঞ্জ',
+            'মানিকগঞ্জ',
+            'মুন্সিগঞ্জ',
+            'রাজবাড়ি',
+            'মাদারীপুর',
+            'শরীয়তপুর',
+            'গোপালগঞ্জ',
+            'ফরিদপুর',
+            'শেরপুর',
+            'ময়মনসিংহ',
+            'জামালপুর',
+            'নেত্রকোনা',
+            'চট্টগ্রাম',
+            'কুমিল্লা',
+            'ফেনী',
+            'ব্রাহ্মণবাড়িয়া',
+            'রাঙ্গামাটি',
+            'নোয়াখালী',
+            'চাঁদপুর',
+            'লক্ষ্মীপুর',
+            'কক্সবাজার',
+            'খাগড়াছড়ি',
+            'বান্দরবান',
+            'রাজশাহী',
+            'চাঁপাইনবাবগঞ্জ',
+            'সিরাজগঞ্জ',
+            'পাবনা',
+            'বগুড়া',
+            'নাটোর',
+            'জয়পুরহাট',
+            'নওগাঁ',
+            'খুলনা',
+            'যশোর',
+            'নড়াইল',
+            'সাতক্ষীরা',
+            'চুয়াডাঙ্গা',
+            'মেহেরপুর',
+            'কুষ্টিয়া',
+            'মাগুরা',
+            'বাগেরহাট',
+            'ঝিনাইদহ',
+            'সিলেট',
+            'মৌলভীবাজার',
+            'হবিগঞ্জ',
+            'সুনামগঞ্জ',
+            'বরিশাল',
+            'পটুয়াখালী',
+            'বরগুনা',
+            'পিরোজপুর',
+            'ঝালকাঠি',
+            'ভোলা',
+            'রংপুর',
+            'ঠাকুরগাঁও',
+            'পঞ্চগড়',
+            'দিনাজপুর',
+            'নিলফামারী',
+            'গাইবান্ধা',
+            'কুড়িগ্রাম',
+            'লালমনিরহাট']
+            
+            // Create and append the options to the select element
+            metroOptions.forEach((optionText) => {
+              const option = document.createElement('option');
+              option.value = optionText;
+              option.text = optionText;
+              selectMetroText.appendChild(option);
+            });
+            
+            // Set the default selected value (you can change this as needed)
+            selectMetroText.value = metroText;
+            
+            inputMetro.appendChild(selectMetroText);
             row.appendChild(inputMetro);
+            
 
             //Vehicle Serial
             const inputSerial = document.createElement('td');
-            const inputSerialNum = document.createElement('input');
-            inputSerialNum.type = 'text';
-            inputSerialNum.value = serial;
-            const serialTxt = "serial";
-            inputSerialNum.style.height = '40px';
-            inputSerialNum.setAttribute('inputColumn', serialTxt);
-            inputSerialNum.setAttribute('data-index', i);
-            inputSerialNum.setAttribute('data-image-name', frontCamImage);
-            inputSerial.appendChild(inputSerialNum);
+            const selectSerialText = document.createElement('select');
+            const serialText = "serial";
+            selectSerialText.setAttribute('inputColumn', serialText);
+            selectSerialText.setAttribute('data-index', i);
+            selectSerialText.setAttribute('data-image-name', frontCamImage);
+            
+            // Define an array of option values
+            const serialOptions = ['ক', 'খ' ,'গ', 'ঘ', 'ঙ' ,'চ', 'ছ', 'জ', 'ঝ', 'ঞ', 'ট', 'ঠ', 'ড', 'ঢ', 'ণ', 'ত', 'থ', 'দ', 'ধ', 'ন', 'প', 'ফ', 'ব', 'ভ', 'ম', 'য', 'র', 'ল', 'শ', 'ষ', 'স', 'হ', 'ড়', 'ঢ়', 'য়',];
+            
+            // Create and append the options to the select element
+            serialOptions.forEach((optionText) => {
+              const option = document.createElement('option');
+              option.value = optionText;
+              option.text = optionText;
+              selectSerialText.appendChild(option);
+            });
+            
+            // Set the default selected value (you can change this as needed)
+            selectSerialText.value = serial;
+            
+            inputSerial.appendChild(selectSerialText);
             row.appendChild(inputSerial);
+            
 
 
             // Vehicle Number 
@@ -110,25 +188,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-            // const numberBackCamCell = document.createElement('td');
-            // numberBackCamCell.textContent = numberBackCam;
-            // row.appendChild(numberBackCamCell);
-
-            // const vehicleNumberUserCell = document.createElement('td');
-            // vehicleNumberUserCell.textContent = vehicleNumberUser;
-            // row.appendChild(vehicleNumberUserCell);
-
-            // const vehicleTypeUserCell = document.createElement('td');
-            // vehicleTypeUserCell.textContent = vehicleTypeUser;
-            // row.appendChild(vehicleTypeUserCell);
-
-            // const vehicleRfidCell = document.createElement('td');
-            // vehicleRfidCell.textContent = vehicleRfid;
-            // row.appendChild(vehicleRfidCell);
-
-
-
-
             tableFragment.appendChild(row);
         }
 
@@ -142,7 +201,6 @@ document.addEventListener('DOMContentLoaded', function () {
         };
 
         // Send a POST request to the server to update the CSV
-        // fetch('/update-csv', {
         fetch(`/updateCsv`, {
             method: 'POST',
             headers: {
@@ -169,10 +227,19 @@ document.addEventListener('DOMContentLoaded', function () {
         if (e.target.tagName === 'INPUT') {
             const frontCamImage = e.target.getAttribute('data-image-name');
             const inputColumn = e.target.getAttribute('inputColumn');
-            console.log(inputColumn);
-            console.log(frontCamImage);
             const newValue = e.target.value;
             updateCsv(frontCamImage, inputColumn, newValue);
+            
+        }
+    });
+    imageTable.addEventListener('change', (d) => {
+        if (d.target.tagName === "SELECT") {
+            const frontCamImage = d.target.getAttribute('data-image-name');
+            const inputColumn = d.target.getAttribute('inputColumn');
+            const newValue = d.target.value;
+            console.log(`col:${inputColumn} value:${newValue}`);
+            updateCsv(frontCamImage, inputColumn, newValue);
+            
         }
     });
 
@@ -188,6 +255,7 @@ document.addEventListener('DOMContentLoaded', function () {
             currentPage++;
             updateTable(currentPage);
         }
+        
     });
 
     displayImagesAndInfo();
