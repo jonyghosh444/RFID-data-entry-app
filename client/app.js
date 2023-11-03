@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
             .then((response) => response.text())
             .then((csv) => {
                 data = csv.split('\n').map(line => line.split(','));
-                data = data.slice(1, -1);
+                data = data.slice(1);
                 updateTable(currentPage);
             })
             .catch((error) => console.error(error));
@@ -26,11 +26,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
         for (let i = start; i < end && i < data.length; i++) {
             const row = document.createElement('tr');
-            const [frontCamImage, numberFrontCam, numberBackCam, vehicleNumberUser, vehicleTypeUser, vehicleRfid, metroText,	serial] = data[i];
+            const [frontCamImage, numberFrontCam, numberBackCam, vehicleNumberUser, vehicleTypeUser, vehicleRfid, metroText, serial] = data[i];
+
 
             //Serial
             const serialCell = document.createElement('td');
-            serialCell.textContent = i;
+            serialCell.textContent = i + 1;
             row.appendChild(serialCell);
 
             // Create an image element to display the image
@@ -40,18 +41,21 @@ document.addEventListener('DOMContentLoaded', function () {
             image.style.maxWidth = '600px'; // Adjust the maximum image width
             imageCell.appendChild(image);
             row.appendChild(imageCell);
-            
+
 
             // Create an input element with a data attribute
             // const imageNameCell = document.createElement('td');
             // imageNameCell.textContent = frontCamImage;
             // row.appendChild(imageNameCell);
-            
+
 
             // ANPR Detected Vehicle Number 
             const numberFrontCamCell = document.createElement('td');
-            numberFrontCamCell.textContent = `${metroText}-${serial} ${numberFrontCam}`;
-            row.appendChild(numberFrontCamCell);
+            const vehicleNumberTxt = document.createElement('span');
+            vehicleNumberTxt.textContent = `${metroText} ${serial} ${numberFrontCam}`;
+            numberFrontCamCell.appendChild(vehicleNumberTxt)
+            row.appendChild(numberFrontCamCell)
+
 
             // // Vehicle Metro Text
             // const inputCell = document.createElement('td');
@@ -68,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const inputMetro = document.createElement('td');
             const inputMetroText = document.createElement('input');
             inputMetroText.type = 'text';
-            // inputMetroText.value = metroText;
+            inputMetroText.value = metroText;
             inputMetroText.style.height = '40px';
             const metroTxt = "metroText"
             inputMetroText.setAttribute('inputColumn', metroTxt);
@@ -81,21 +85,21 @@ document.addEventListener('DOMContentLoaded', function () {
             const inputSerial = document.createElement('td');
             const inputSerialNum = document.createElement('input');
             inputSerialNum.type = 'text';
-            // inputSerialNum.value = serial;
+            inputSerialNum.value = serial;
             const serialTxt = "serial";
             inputSerialNum.style.height = '40px';
             inputSerialNum.setAttribute('inputColumn', serialTxt);
             inputSerialNum.setAttribute('data-index', i);
             inputSerialNum.setAttribute('data-image-name', frontCamImage);
             inputSerial.appendChild(inputSerialNum);
-            row.appendChild(inputSerial);            
+            row.appendChild(inputSerial);
 
-            
+
             // Vehicle Number 
             const inputCell = document.createElement('td');
             const input = document.createElement('input');
             input.type = 'text';
-            // input.value = numberFrontCam;
+            input.value = numberFrontCam;
             input.style.height = '40px';
             const vehicleNum = "vehicleNumber"
             input.setAttribute('inputColumn', vehicleNum);
@@ -103,25 +107,25 @@ document.addEventListener('DOMContentLoaded', function () {
             input.setAttribute('data-image-name', frontCamImage);
             inputCell.appendChild(input);
             row.appendChild(inputCell);
-        
 
-            
+
+
             // const numberBackCamCell = document.createElement('td');
             // numberBackCamCell.textContent = numberBackCam;
             // row.appendChild(numberBackCamCell);
-            
+
             // const vehicleNumberUserCell = document.createElement('td');
             // vehicleNumberUserCell.textContent = vehicleNumberUser;
             // row.appendChild(vehicleNumberUserCell);
-            
+
             // const vehicleTypeUserCell = document.createElement('td');
             // vehicleTypeUserCell.textContent = vehicleTypeUser;
             // row.appendChild(vehicleTypeUserCell);
-            
+
             // const vehicleRfidCell = document.createElement('td');
             // vehicleRfidCell.textContent = vehicleRfid;
             // row.appendChild(vehicleRfidCell);
-            
+
 
 
 
@@ -131,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function () {
         imageTableBody.innerHTML = '';
         imageTableBody.appendChild(tableFragment);
     }
-    function updateCsv(imageName,inputColumn,updatedValue) {
+    function updateCsv(imageName, inputColumn, updatedValue) {
         // Create an object with the updated data
         const updatedData = {
             [imageName]: updatedValue,
@@ -168,7 +172,7 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log(inputColumn);
             console.log(frontCamImage);
             const newValue = e.target.value;
-            updateCsv(frontCamImage,inputColumn,newValue);
+            updateCsv(frontCamImage, inputColumn, newValue);
         }
     });
 

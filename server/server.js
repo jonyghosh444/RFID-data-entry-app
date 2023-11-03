@@ -18,9 +18,6 @@ app.use(bodyParser.text({ type: 'text/plain' })); // Specify 'text/plain' type
 
 app.post('/updateCsv', (req, res) => {
     const { imageName, inputColumn, updatedValue } = req.body;
-    console.log(imageName);
-    console.log(inputColumn);
-    console.log(updatedValue);
     const csvFilePath = '../csv/data.csv';
     const updatedData = [];
 
@@ -60,7 +57,7 @@ app.post('/updateCsv', (req, res) => {
             // Write the header to the CSV file
             const header = 'frontCamImage,numberFrontCam,numberBackCam,vehicleNumberUser,vehicleTypeUser,vehicleRfid,metroText,serial\n';
             fs.writeFileSync(csvFilePath, header);
-            console.log(updatedData);
+            // console.log(updatedData);
 
             // Append the updated data to the CSV file
             for (const row of updatedData) {

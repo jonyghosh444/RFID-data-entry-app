@@ -1,6 +1,6 @@
 frontCamImage,numberFrontCam,numberBackCam,vehicleNumberUser,vehicleTypeUser,vehicleRfid,metroText,serial
-1.jpg,4235,1,13213,car,rf213234234234,dhaka metro,ka
-2.jpg,354235,2,13214,car,rf1,hh,d
+1.jpg,sdfaf,1,13213,car,rf213234234234,chatro,sdfa
+2.jpg,354235,2,13214,car,rf1,sdfasdf,dfd
 3.jpg,111111,3,13215,car,rf2,kumilla,dha
 4.jpg,checking,4,13216,car,rf3,checking,checking
 5.jpg,12325,5,13217,car,rf4,Dhaka,5
@@ -39,5 +39,3 @@ frontCamImage,numberFrontCam,numberBackCam,vehicleNumberUser,vehicleTypeUser,veh
 38.jpg,12358,38,13250,car,rf37,Dhaka,38
 39.jpg,12359,39,13251,car,rf38,Dhaka,39
 40.jpg,12360,40,13252,car,rf39,Dhaka,40
-0,undefined,undefined,undefined,undefined,undefined,undefined,undefined
-undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined
