@@ -28,12 +28,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     for (let i = start; i < end && i < data.length; i++) {
       const row = document.createElement('tr');
-      const [frontCamImage, numberFrontCam, numberBackCam, vehicleNumberUser, vehicleTypeUser, vehicleRfid, metroText, serial] = data[i];
+      const [no,frontCamImage, numberFrontCam, numberBackCam, vehicleNumberUser, vehicleTypeUser, vehicleRfid, metroText, serial] = data[i];
 
 
       //Serial
       const serialCell = document.createElement('td');
-      serialCell.textContent = i + 1;
+      serialCell.textContent = no;
       row.appendChild(serialCell);
 
       // Create an image element to display the image
