@@ -14,7 +14,8 @@ document.addEventListener('DOMContentLoaded', function () {
       .then((response) => response.text())
       .then((csv) => {
         data = csv.split('\n').map(line => line.split(','));
-        data = data.slice(1);
+        data = data.slice(1,-1);
+        console.log(data);
         updateTable(currentPage);
         updatePagination();
       })
@@ -28,19 +29,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
     for (let i = start; i < end && i < data.length; i++) {
       const row = document.createElement('tr');
-      const [no,frontCamImage, numberFrontCam, numberBackCam, vehicleNumberUser, vehicleTypeUser, vehicleRfid, metroText, serial] = data[i];
+      const [slno,frontCamImage, numberFrontCam, numberBackCam, vehicleNumberUser, vehicleTypeUser, vehicleRfid, metroText, serial] = data[i];
 
 
       //Serial
       const serialCell = document.createElement('td');
-      serialCell.textContent = no;
+      serialCell.textContent = slno;
       row.appendChild(serialCell);
 
       // Create an image element to display the image
       const imageCell = document.createElement('td');
       const image = document.createElement('img');
-      image.src = `./images/${frontCamImage.split("/")[1]}`; // Assuming images are in the 'images' directory
-      // image.src = `./images/${frontCamImage}`; // Assuming images are in the 'images' directory
+      // image.src = `./images/${frontCamImage.split("/")[1]}`; // Assuming images are in the 'images' directory
+      image.src = `./images/${frontCamImage}`; // Assuming images are in the 'images' directory
       image.style.maxWidth = '600px'; // Adjust the maximum image width
       imageCell.appendChild(image);
       image.addEventListener('dblclick', () => {
@@ -301,6 +302,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const frontCamImage = e.target.getAttribute('data-image-name');
       const inputColumn = e.target.getAttribute('inputColumn');
       const newValue = e.target.value;
+      console.log(`col:${inputColumn} value:${newValue}`);
       updateCsv(frontCamImage, inputColumn, newValue);
 
     }
