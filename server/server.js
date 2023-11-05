@@ -81,7 +81,7 @@ app.use('/csv', express.static(path.resolve(__dirname, '../csv')));
 app.use('/images', express.static(path.resolve(__dirname, '../images')));
 
 // Start the server
-const port = 6060; // Change this to your desired port
+const port = 9000; // Change this to your desired port
 app.listen(port, () => {
-    console.log(`Server is running on port http://localhost:${port}`);
+    console.log(`Server is running on port http://0.0.0.0:${port}`);
 });
