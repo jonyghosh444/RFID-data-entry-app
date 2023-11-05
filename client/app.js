@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     for (let i = start; i < end && i < data.length; i++) {
       const row = document.createElement('tr');
-      const [slno,frontCamImage, numberFrontCam, numberBackCam, vehicleNumberUser, vehicleTypeUser, vehicleRfid, metroText, serial] = data[i];
+      const [slno,frontCamImage,numberFrontCam,numberBackCam,vehicleNumberUser,vehicleTypeUser,vehicleRfid,metroText,serial] = data[i];
 
 
       //Serial
@@ -40,7 +40,8 @@ document.addEventListener('DOMContentLoaded', function () {
       // Create an image element to display the image
       const imageCell = document.createElement('td');
       const image = document.createElement('img');
-      image.src = `./images/${frontCamImage.split("/")[1]}`; // Assuming images are in the 'images' directory
+      const imageName = frontCamImage.split("/")[1];
+      image.src = `./images/${imageName}`; // Assuming images are in the 'images' directory
       // image.src = `./images/${frontCamImage}`; // Assuming images are in the 'images' directory
       image.style.maxWidth = '600px'; // Adjust the maximum image width
       imageCell.appendChild(image);
@@ -68,7 +69,8 @@ document.addEventListener('DOMContentLoaded', function () {
       const metroTxt = "metroText";
       selectMetroText.setAttribute('inputColumn', metroTxt);
       selectMetroText.setAttribute('data-index', i);
-      selectMetroText.setAttribute('data-image-name', frontCamImage);
+      selectMetroText.setAttribute('data-serial', slno);
+      selectMetroText.setAttribute('data-image-name', imageName);
 
       // Define an array of option values
       const metroOptions = ['ঢাকা মেট্রো',
@@ -164,7 +166,8 @@ document.addEventListener('DOMContentLoaded', function () {
       const serialText = "serial";
       selectSerialText.setAttribute('inputColumn', serialText);
       selectSerialText.setAttribute('data-index', i);
-      selectSerialText.setAttribute('data-image-name', frontCamImage);
+      selectSerialText.setAttribute('data-serial', slno);
+      selectSerialText.setAttribute('data-image-name', imageName);
 
       // Define an array of option values
       const serialOptions = ['অ', 'ই', 'উ', 'এ', 'ক', 'খ', 'গ', 'ঘ', 'ঙ', 'চ', 'ছ', 'জ', 'ঝ', 'ঞ', 'ট', 'ঠ', 'ড', 'ঢ', 'ণ', 'ত', 'থ', 'দ', 'ধ', 'ন', 'প', 'ফ', 'ব', 'ভ', 'ম', 'য', 'র', 'ল', 'শ', 'ষ', 'স', 'হ', 'ড়', 'ঢ়', 'য়',];
@@ -194,7 +197,8 @@ document.addEventListener('DOMContentLoaded', function () {
       const vehicleNum = "vehicleNumber"
       input.setAttribute('inputColumn', vehicleNum);
       input.setAttribute('data-index', i);
-      input.setAttribute('data-image-name', frontCamImage);
+      input.setAttribute('data-serial', slno);
+      input.setAttribute('data-image-name', imageName);
       inputCell.appendChild(input);
       row.appendChild(inputCell);
 
@@ -207,7 +211,7 @@ document.addEventListener('DOMContentLoaded', function () {
     imageTableBody.appendChild(tableFragment);
   }
 
-  function updateCsv(imageName, inputColumn, updatedValue) {
+  function updateCsv(imageName,slno, inputColumn, updatedValue) {
     // Create an object with the updated data
     const updatedData = {
       [imageName]: updatedValue,
@@ -221,6 +225,7 @@ document.addEventListener('DOMContentLoaded', function () {
       },
       body: JSON.stringify({
         imageName,
+        slno,
         inputColumn,
         updatedValue,
       }),
@@ -291,6 +296,7 @@ document.addEventListener('DOMContentLoaded', function () {
       });
       pagination.appendChild(nextButton);
     }
+    updateTable(currentPage);
   }
 
   // ...
@@ -299,21 +305,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
   imageTable.addEventListener('input', (e) => {
     if (e.target.tagName === 'INPUT') {
-      const frontCamImage = e.target.getAttribute('data-image-name');
+      const imageName = e.target.getAttribute('data-image-name');
+      const slno = e.target.getAttribute('data-serial');
       const inputColumn = e.target.getAttribute('inputColumn');
       const newValue = e.target.value;
-      console.log(`col:${inputColumn} value:${newValue}`);
-      updateCsv(frontCamImage, inputColumn, newValue);
+      console.log(`${slno}:${imageName}:${inputColumn}:${newValue}`);
+      updateCsv(imageName,slno, inputColumn, newValue);
 
     }
   });
   imageTable.addEventListener('change', (d) => {
     if (d.target.tagName === "SELECT") {
-      const frontCamImage = d.target.getAttribute('data-image-name');
+      const imageName = d.target.getAttribute('data-image-name');
+      const slno = d.target.getAttribute('data-serial');
       const inputColumn = d.target.getAttribute('inputColumn');
       const newValue = d.target.value;
-      console.log(`col:${inputColumn} value:${newValue}`);
-      updateCsv(frontCamImage, inputColumn, newValue);
+      console.log(`${slno}:${imageName}:${inputColumn}:${newValue}`);
+      updateCsv(imageName,slno, inputColumn, newValue);
 
     }
   });

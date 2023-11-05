@@ -17,9 +17,12 @@ app.get('/', (req, res) => {
 app.use(bodyParser.text({ type: 'text/plain' })); // Specify 'text/plain' type
 
 app.post('/updateCsv', (req, res) => {
-    const { imageName, inputColumn, updatedValue } = req.body;
+    const { imageName,slno, inputColumn, updatedValue } = req.body;
     const csvFilePath = '../csv/data.csv';
     const updatedData = [];
+    console.log(slno);
+    console.log(inputColumn);
+    console.log(updatedValue);
 
     // Read the CSV file
     const rows = [];
@@ -32,28 +35,30 @@ app.post('/updateCsv', (req, res) => {
             // Update the data in memory
             if (inputColumn === "metroText"){
                 for (const row of rows) {
-                    if (row.frontCamImage === imageName) {
+                    if (row.slno === slno) {
                         row.metroText = updatedValue;
+                        console.log("vehicle metrotext sucessfully");
                     }
                     updatedData.push(row);
                 }
             }else if(inputColumn==="serial"){
                 for (const row of rows) {
-                    if (row.frontCamImage === imageName) {
+                    if (row.slno === slno) {
                         row.serial = updatedValue;
+                        console.log("vehicle serialtext sucessfully");
                     }
                     updatedData.push(row);
                 }
             }else if(inputColumn==="vehicleNumber"){
                 for (const row of rows) {
-                    if (row.frontCamImage === imageName) {
+                    if (row.slno === slno) {
                         row.numberFrontCam = updatedValue;
+                        console.log("vehicle number updated sucessfully");
                     }
                     updatedData.push(row);
                 }
             }
 
-            console.log(updatedData);
             // Write the header to the CSV file
             const header = 'slno,frontCamImage,numberFrontCam,numberBackCam,vehicleNumberUser,vehicleTypeUser,vehicleRfid,metroText,serial\n';
             fs.writeFileSync(csvFilePath, header);
