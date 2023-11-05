@@ -55,13 +55,13 @@ app.post('/updateCsv', (req, res) => {
 
 
             // Write the header to the CSV file
-            const header = 'frontCamImage,numberFrontCam,numberBackCam,vehicleNumberUser,vehicleTypeUser,vehicleRfid,metroText,serial\n';
+            const header = 'no,frontCamImage, numberFrontCam, numberBackCam, vehicleNumberUser, vehicleTypeUser, vehicleRfid, metroText, serial\n';
             fs.writeFileSync(csvFilePath, header);
             // console.log(updatedData);
 
             // Append the updated data to the CSV file
             for (const row of updatedData) {
-                const rowStr = `${row.frontCamImage},${row.numberFrontCam},${row.numberBackCam},${row.vehicleNumberUser},${row.vehicleTypeUser},${row.vehicleRfid},${row.metroText},${row.serial}\n`;
+                const rowStr = `${row.no},${row.frontCamImage},${row.numberFrontCam},${row.numberBackCam},${row.vehicleNumberUser},${row.vehicleTypeUser},${row.vehicleRfid},${row.metroText},${row.serial}\n`;
                 fs.appendFileSync(csvFilePath, rowStr);
             }
 
