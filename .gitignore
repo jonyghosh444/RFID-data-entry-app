@@ -4,6 +4,7 @@
 old
 client/a.js
 i
+csv/data.csv
 # Logs
 logs
 *.log
