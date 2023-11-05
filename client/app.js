@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const nextButton = document.getElementById('nextButton');
   const pagination = document.getElementById('pagination');
   let currentPage = 1;
-  const itemsPerPage = 5;
+  const itemsPerPage = 10;
   let data = [];
 
   function displayImagesAndInfo() {
@@ -40,8 +40,17 @@ document.addEventListener('DOMContentLoaded', function () {
       const imageCell = document.createElement('td');
       const image = document.createElement('img');
       image.src = `./images/${frontCamImage.split("/")[1]}`; // Assuming images are in the 'images' directory
+      // image.src = `./images/${frontCamImage}`; // Assuming images are in the 'images' directory
       image.style.maxWidth = '600px'; // Adjust the maximum image width
       imageCell.appendChild(image);
+      image.addEventListener('dblclick', () => {
+        image.style.transform = 'scale(3)';
+        image.style.transition = 'transform 0.5s';
+      });
+      image.addEventListener('click', () => {
+        image.style.transform = 'scale(1)';
+        image.style.transition = 'transform 0.5s';
+      });
       row.appendChild(imageCell);
 
       // ANPR Detected Vehicle Number 
@@ -157,7 +166,7 @@ document.addEventListener('DOMContentLoaded', function () {
       selectSerialText.setAttribute('data-image-name', frontCamImage);
 
       // Define an array of option values
-      const serialOptions = ['ক', 'খ', 'গ', 'ঘ', 'ঙ', 'চ', 'ছ', 'জ', 'ঝ', 'ঞ', 'ট', 'ঠ', 'ড', 'ঢ', 'ণ', 'ত', 'থ', 'দ', 'ধ', 'ন', 'প', 'ফ', 'ব', 'ভ', 'ম', 'য', 'র', 'ল', 'শ', 'ষ', 'স', 'হ', 'ড়', 'ঢ়', 'য়',];
+      const serialOptions = ['অ', 'ই', 'উ', 'এ', 'ক', 'খ', 'গ', 'ঘ', 'ঙ', 'চ', 'ছ', 'জ', 'ঝ', 'ঞ', 'ট', 'ঠ', 'ড', 'ঢ', 'ণ', 'ত', 'থ', 'দ', 'ধ', 'ন', 'প', 'ফ', 'ব', 'ভ', 'ম', 'য', 'র', 'ল', 'শ', 'ষ', 'স', 'হ', 'ড়', 'ঢ়', 'য়',];
 
       // Create and append the options to the select element
       serialOptions.forEach((optionText) => {
@@ -226,10 +235,25 @@ document.addEventListener('DOMContentLoaded', function () {
 
   }
 
+  // ...
+
+  // ...
+
   function updatePagination() {
     pagination.innerHTML = '';
 
     const totalPages = Math.ceil(data.length / itemsPerPage);
+
+    const maxButtons = 10; // Maximum number of buttons to display
+
+    // Calculate the range of buttons to show
+    let startPage = Math.max(1, currentPage - Math.floor(maxButtons / 2));
+    const endPage = Math.min(totalPages, startPage + maxButtons - 1);
+
+    // Adjust the startPage if we are near the end
+    if (endPage === totalPages) {
+      startPage = Math.max(1, endPage - maxButtons + 1);
+    }
 
     if (currentPage > 1) {
       const prevButton = document.createElement('button');
@@ -242,9 +266,12 @@ document.addEventListener('DOMContentLoaded', function () {
       pagination.appendChild(prevButton);
     }
 
-    for (let i = 1; i <= totalPages; i++) {
+    for (let i = startPage; i <= endPage; i++) {
       const button = document.createElement('button');
       button.textContent = i;
+      if (i === currentPage) {
+        button.classList.add('selected-page'); // Apply the selected class
+      }
       button.addEventListener('click', () => {
         currentPage = i;
         updateTable(currentPage);
@@ -264,6 +291,10 @@ document.addEventListener('DOMContentLoaded', function () {
       pagination.appendChild(nextButton);
     }
   }
+
+  // ...
+
+
 
   imageTable.addEventListener('input', (e) => {
     if (e.target.tagName === 'INPUT') {

@@ -25,3 +25,11 @@ tr:hover {
 button {
     margin: 5px;
 }
+
+/* Add a class for the selected pagination button */
+.selected-page {
+    background-color: #007BFF; /* Change to your preferred color */
+    color: white;
+    font-weight: bold;
+  }
+  
