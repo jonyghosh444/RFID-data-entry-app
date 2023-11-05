@@ -39,6 +39,6 @@ fs.createReadStream(csvFilePath)
     .on('data', row => csvData.push(row))
     .on('end', () => {
         app.listen(port, () => {
-            console.log(`Server is running on http://localhost:${port}`);
+            console.log(`Server is running on http://0.0.0.0:${port}`);
         });
     });
