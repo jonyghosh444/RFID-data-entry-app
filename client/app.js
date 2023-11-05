@@ -40,8 +40,8 @@ document.addEventListener('DOMContentLoaded', function () {
       // Create an image element to display the image
       const imageCell = document.createElement('td');
       const image = document.createElement('img');
-      // image.src = `./images/${frontCamImage.split("/")[1]}`; // Assuming images are in the 'images' directory
-      image.src = `./images/${frontCamImage}`; // Assuming images are in the 'images' directory
+      image.src = `./images/${frontCamImage.split("/")[1]}`; // Assuming images are in the 'images' directory
+      // image.src = `./images/${frontCamImage}`; // Assuming images are in the 'images' directory
       image.style.maxWidth = '600px'; // Adjust the maximum image width
       imageCell.appendChild(image);
       image.addEventListener('dblclick', () => {
