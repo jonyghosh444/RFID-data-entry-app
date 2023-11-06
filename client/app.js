@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const nextButton = document.getElementById('nextButton');
   const pagination = document.getElementById('pagination');
   let currentPage = 1;
-  const itemsPerPage = 10;
+  const itemsPerPage = 20;
   let data = [];
 
   function displayImagesAndInfo() {
@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', function () {
       .then((csv) => {
         data = csv.split('\n').map(line => line.split(','));
         data = data.slice(1,-1);
-        console.log(data);
         updateTable(currentPage);
         updatePagination();
       })
@@ -211,7 +210,7 @@ document.addEventListener('DOMContentLoaded', function () {
     imageTableBody.appendChild(tableFragment);
   }
 
-  function updateCsv(imageName,slno, inputColumn, updatedValue) {
+  async function updateCsv(imageName,slno, inputColumn, updatedValue) {
     // Create an object with the updated data
     const updatedData = {
       [imageName]: updatedValue,

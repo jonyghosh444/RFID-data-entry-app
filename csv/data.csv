@@ -1,5 +1,5 @@
 slno,frontCamImage,numberFrontCam,numberBackCam,vehicleNumberUser,vehicleTypeUser,vehicleRfid,metroText,serial
-1,2023-07-17/64cf8dc6-3540-4a01-8a26-8a4d92cded0e_f.jpg,35,-1,1,Mini Truck,42 52 54 41 FF 02 0A 15 09 53 00 01 ,চট্ট মেট্রো,ই
+1,2023-07-17/64cf8dc6-3540-4a01-8a26-8a4d92cded0e_f.jpg,35777,-1,1,Mini Truck,42 52 54 41 FF 02 0A 15 09 53 00 01 ,নরসিংদী,অ
 2,2023-07-17/624aca35-dad5-4320-8387-b337024cacce_f.jpg,২০-৯৬১৪,-1,209614,Sedan Car,42 52 54 41 FF 02 0F 14 25 8E 00 01 ,,
 3,2023-07-17/bc5d9486-fe95-4e5e-a0cc-0f7420c9048b_f.jpg,,-1,1,Sedan Car,42 52 54 41 FF 02 0F 22 1E 56 00 01 ,,
 4,2023-07-17/71713212-89f4-4488-8cba-4e1ede0860ac_f.jpg,22,-1,NULL,NULL,42 52 54 41 FF 37 13 0B 06 50 00 01 ,,
@@ -7,11 +7,11 @@ slno,frontCamImage,numberFrontCam,numberBackCam,vehicleNumberUser,vehicleTypeUse
 6,2023-07-17/c8e97d99-84af-4fc5-a524-37d7447c3733_f.jpg,-1,,NULL,NULL,42 52 54 41 FF 02 19 10 03 D3 00 01 ,,
 7,2023-07-17/879efedb-1c81-4ed0-ab7e-073d3bbfcec1_f.jpg,-1,-1,1,Mini Truck,42 52 54 41 FF 02 0A 0F 13 86 00 01 ,,
 8,2023-07-17/71f23b23-742f-431f-a42b-b6b3de1130e5_f.jpg,-1,-1,NULL,NULL,42 52 54 41 FF 02 19 14 07 16 00 01 ,,
-9,2023-07-17/2b623b44-2cd0-4bef-af66-a2133985d659_f.jpg,৫ "`৫৭3,-1,5573,Big Bus,42 52 54 41 FF 02 1E 0F 21 7C 00 01 ,,
+9,2023-07-17/2b623b44-2cd0-4bef-af66-a2133985d659_f.jpg,৫ "`৫৭366,-1,5573,Big Bus,42 52 54 41 FF 02 1E 0F 21 7C 00 01 ,শরীয়তপুর,ণ
 10,2023-07-17/e8b815c6-e2d9-4601-a86a-51282c2fe872_f.jpg,-1,-1,1,Microbus,42 52 54 41 FF 02 19 10 01 B8 00 01 ,,
-11,2023-07-17/55a36281-5cd5-4c6d-88e1-4fb736b20f13_f.jpg,২২-১১০০,-1,221100,Sedan Car,42 52 54 41 FF 02 0F 16 04 4C 00 01 ,,
+11,2023-07-17/55a36281-5cd5-4c6d-88e1-4fb736b20f13_f.jpg,২২-১১০০,-1,221100,Sedan Car,42 52 54 41 FF 02 0F 16 04 4C 00 01 ,গোপালগঞ্জ,ঢ
 12,2023-07-17/861173a5-ff89-4065-bc48-4cc5cece643b_f.jpg,-1,-1,1,Big Bus,42 52 54 41 FF 02 1E 0F 25 AD 00 01 ,,
-13,2023-07-17/6a3a2e02-238e-4c92-8e53-5564e81794b6_f.jpg,-1,-1,1,Heavy Truck,42 52 54 41 FF 02 18 29 01 F7 00 01 ,,
+13,2023-07-17/6a3a2e02-238e-4c92-8e53-5564e81794b6_f.jpg,-1,-1,1,Heavy Truck,42 52 54 41 FF 02 18 29 01 F7 00 01 ,চট্ট মেট্রো,ঘ
 14,2023-07-17/f412d291-7a5c-463f-a326-5f1fa180e140_f.jpg,,-1,1,Microbus,42 52 54 41 FF 06 14 0C 16 DB 00 01 ,,
 15,2023-07-17/a9925a5d-98c9-4fe2-a05b-e55de837afe7_f.jpg,-1,-1,1,Mini Truck,42 52 54 41 FF 02 0B 0B 13 BD 00 01 ,,
 16,2023-07-17/7df02e9b-d93b-42de-9c62-e2176428ba22_f.jpg,-1,-1,1,Medium Truck,42 52 54 41 FF 08 0B 0B 04 4B 00 01 ,,
@@ -20,7 +20,7 @@ slno,frontCamImage,numberFrontCam,numberBackCam,vehicleNumberUser,vehicleTypeUse
 19,2023-07-17/7350417e-c518-4fea-be0f-1ec23add8e0b_f.jpg,-1,-1,1,Medium Truck,42 52 54 41 FF 02 13 3E 04 4E 00 01 ,,
 20,2023-07-17/4b660fee-15cc-47fe-8c03-0b991e67f2fe_f.jpg,-1,-1,1,Mini Bus/Coster,42 52 54 41 FF 02 1D 0E 00 98 00 01 ,,
 21,2023-07-17/23bcee23-58c3-4656-903d-aa989d37a0cc_f.jpg,-1,-1,NULL,NULL,42 52 54 41 FF 24 14 0B 21 AE 00 01 ,,
-22,2023-07-17/bb13c60b-c45c-407d-9450-701d03339670_f.jpg,-1,-1,1,Big Bus,42 52 54 41 FF 02 1A 0F 1F FD 00 01 ,,
+22,2023-07-17/bb13c60b-c45c-407d-9450-701d03339670_f.jpg,-1,-1,1,Big Bus,42 52 54 41 FF 02 1A 0F 1F FD 00 01 ,চট্ট মেট্রো,ই
 23,2023-07-17/f4d1d5ce-921a-4349-a9b4-85cd4caf534e_f.jpg,১৪ ১৯৪৪,-1,119,Medium Truck,42 52 54 41 FF 02 08 0E 08 C4 00 01 ,,
 24,2023-07-17/7d05e19c-246d-4793-816f-8a0214746591_f.jpg,২৯-১৭২৫,-1,NULL,NULL,42 52 54 41 FF 02 0F 1D 06 BD 00 01 ,,
 25,2023-07-17/f25c9abd-27c5-45cd-9e0a-2133e3051392_f.jpg,-1,-1,NULL,NULL,42 52 54 41 FF 37 14 0C 06 F0 00 01 ,,
@@ -198,7 +198,7 @@ slno,frontCamImage,numberFrontCam,numberBackCam,vehicleNumberUser,vehicleTypeUse
 197,2023-07-17/2dc93825-391b-4386-b4da-99f2789a551d_f.jpg,-1,-1,NULL,NULL,42 52 54 41 FF 08 0A 0B 3C BD 00 01 ,,
 198,2023-07-17/b4e49ee6-3447-4a07-9ad4-69cef79bbde7_f.jpg,-1,-1,NULL,NULL,30 35 34 CE E0 04 BB 00 B2 D0 80 3A ,,
 199,2023-07-17/ae8e47b8-0fbf-43f7-b4f5-f599e96eb225_f.jpg,-1,-1,NULL,NULL,42 52 54 41 FF 02 07 47 11 5C 00 01 ,,
-200,2023-07-17/a82ae97d-f9c6-41a9-8db7-09a6e5cb4c74_f.jpg,-1,-1,NULL,NULL,42 52 54 41 FF 14 0A 0B 04 B1 00 01 ,,
+200,2023-07-17/a82ae97d-f9c6-41a9-8db7-09a6e5cb4c74_f.jpg,888,-1,NULL,NULL,42 52 54 41 FF 14 0A 0B 04 B1 00 01 ,নারায়ণগঞ্জ,জ
 201,2023-07-17/eed600dd-42d9-424a-963f-8a59205a3177_f.jpg,-1,-1,NULL,NULL,42 52 54 41 FF 02 0A 14 12 25 00 01 ,,
 202,2023-07-17/84ff2655-6f0a-4a03-bd62-3630b137203b_f.jpg,-1,-1,1,4 Wheelers,42 52 54 41 FF 02 05 0B 0A 34 00 01 ,,
 203,2023-07-17/238702d0-0b75-4fa7-a616-82c553d389a8_f.jpg,-1,-1,1,Mini Truck,42 52 54 41 FF 02 0C 0B 21 9C 00 01 ,,
