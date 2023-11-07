@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     for (let i = start; i < end && i < data.length; i++) {
       const row = document.createElement('tr');
-      const [slno,frontCamImage,numberFrontCam,numberBackCam,vehicleNumberUser,vehicleTypeUser,vehicleRfid,metroText,serial] = data[i];
+      const [slno,frontCamImage,numberFrontCam,numberBackCam,vehicleNumberUser,vehicleTypeUser,vehicleRfid,metroText,serial,numberFrontCam1] = data[i];
 
 
       //Serial
@@ -39,9 +39,9 @@ document.addEventListener('DOMContentLoaded', function () {
       // Create an image element to display the image
       const imageCell = document.createElement('td');
       const image = document.createElement('img');
-      const imageName = frontCamImage.split("/")[1];
+      // const imageName = frontCamImage.split("/")[1];
+      const imageName = frontCamImage;
       image.src = `./images/${imageName}`; // Assuming images are in the 'images' directory
-      // image.src = `./images/${frontCamImage}`; // Assuming images are in the 'images' directory
       image.style.maxWidth = '600px'; // Adjust the maximum image width
       imageCell.appendChild(image);
       image.addEventListener('dblclick', () => {
