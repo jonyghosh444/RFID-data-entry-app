@@ -21,7 +21,7 @@ app.post('/updateCsv', async (req, res) => {
   // const csvFilePath = '../csv/data.csv';
   const csvFilePath = path.resolve(__dirname, '../csv/data.csv');
 
-  const readStream = fs.createReadStream(csvFilePath);
+  const readStream = fs.createReadStream(csvFilePath, { encoding: 'utf8' });
   const tempCsvFilePath = csvFilePath + '.temp';
 
   const rl = readline.createInterface({ input: readStream });
@@ -50,7 +50,7 @@ app.post('/updateCsv', async (req, res) => {
   const pipeline = require('util').promisify(require('stream').pipeline);
 
   try {
-    await pipeline(rl, transform, fs.createWriteStream(tempCsvFilePath));
+    await pipeline(rl, transform, fs.createWriteStream(tempCsvFilePath, { encoding: 'utf8' }));
 
     // Rename the temporary file to the original file name
     await fs.promises.rename(tempCsvFilePath, csvFilePath);
