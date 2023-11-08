@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const nextButton = document.getElementById('nextButton');
   const pagination = document.getElementById('pagination');
   let currentPage = 1;
-  const itemsPerPage = 20;
+  const itemsPerPage = 50;
   let data = [];
 
   function displayImagesAndInfo() {
@@ -249,10 +249,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const totalPages = Math.ceil(data.length / itemsPerPage);
 
-    const maxButtons = 10; // Maximum number of buttons to display
+    const maxButtons = 20; // Maximum number of buttons to display
 
     // Calculate the range of buttons to show
-    let startPage = Math.max(1, currentPage - Math.floor(maxButtons / 2));
+    // let startPage = Math.max(1, currentPage - Math.floor(maxButtons / 2));
+    let startPage = Math.max(1, currentPage - Math.floor(maxButtons-15));
     const endPage = Math.min(totalPages, startPage + maxButtons - 1);
 
     // Adjust the startPage if we are near the end

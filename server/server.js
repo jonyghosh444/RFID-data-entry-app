@@ -6,7 +6,6 @@ const app = express();
 const path = require('path');
 const readline = require('readline');
 const stream = require('stream');
-const { pipeline } = require('stream/promises');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -18,11 +17,12 @@ app.get('/', (req, res) => {
 app.use(bodyParser.text({ type: 'text/plain' }));
 
 app.post('/updateCsv', async (req, res) => {
-  const { imageName, slno, inputColumn, updatedValue } = req.body;
-  const csvFilePath = '../csv/data.csv'; // Adjust the path to your CSV file
+  const { slno, inputColumn, updatedValue } = req.body;
+  // const csvFilePath = '../csv/data.csv';
+  const csvFilePath = path.resolve(__dirname, '../csv/data.csv');
 
   const readStream = fs.createReadStream(csvFilePath);
-  const writeStream = fs.createWriteStream(csvFilePath + '.tmp');
+  const tempCsvFilePath = csvFilePath + '.temp';
 
   const rl = readline.createInterface({ input: readStream });
   const transform = new stream.Transform({ objectMode: true });
@@ -33,13 +33,13 @@ app.post('/updateCsv', async (req, res) => {
     if (parseInt(data[0]) === parseInt(slno)) {
       if (inputColumn === 'metroText') {
         data[7] = updatedValue;
-        console.log("metrtext storing");
+        console.log(`Metro text inputed into line no ${0} successfully `);
       } else if (inputColumn === 'serial') {
         data[8] = updatedValue;
-        console.log("serial storing");
+        console.log(`serial text inputed into line no ${0} successfully `);
       } else if (inputColumn === 'vehicleNumber') {
         data[2] = updatedValue;
-        console.log("vehicleNumber storing");
+        console.log(`vehicleNumber inputed into line no ${0} successfully `);
       }
     }
 
@@ -47,30 +47,26 @@ app.post('/updateCsv', async (req, res) => {
     done();
   };
 
-  try {
-    await pipeline(rl, transform, writeStream);
-    readStream.close(); // Close the original readStream
-    writeStream.close(); // Close the writeStream
+  const pipeline = require('util').promisify(require('stream').pipeline);
 
-    await fs.promises.unlink(csvFilePath); // Use async unlink to remove the old file
-    await fs.promises.rename(csvFilePath + '.tmp', csvFilePath);
+  try {
+    await pipeline(rl, transform, fs.createWriteStream(tempCsvFilePath));
+
+    // Rename the temporary file to the original file name
+    await fs.promises.rename(tempCsvFilePath, csvFilePath);
+
     res.status(200).send('CSV file updated successfully');
   } catch (error) {
+    console.error('An error occurred while updating the CSV file:', error);
     res.status(500).send('An error occurred while updating the CSV file');
   }
 });
 
-// Serve your HTML page (modify this path as needed)
-// Serve static files from the 'client' directory
 app.use('/client', express.static(path.resolve(__dirname, '../client')));
-
-// Serve csv file
 app.use('/csv', express.static(path.resolve(__dirname, '../csv')));
-
-// Serve Images file
 app.use('/images', express.static(path.resolve(__dirname, '../images')));
-const port = 9000; // Change this to your desired port
-// Start the server
+
+const port = 9000;
 app.listen(port, () => {
   console.log(`Server is running on port http://0.0.0.0:${port}`);
 });
