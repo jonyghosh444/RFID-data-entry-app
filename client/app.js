@@ -249,7 +249,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const totalPages = Math.ceil(data.length / itemsPerPage);
 
-    const maxButtons = 20; // Maximum number of buttons to display
+    const maxButtons = 25; // Maximum number of buttons to display
 
     // Calculate the range of buttons to show
     // let startPage = Math.max(1, currentPage - Math.floor(maxButtons / 2));
