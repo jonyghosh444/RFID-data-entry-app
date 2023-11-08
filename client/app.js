@@ -253,7 +253,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Calculate the range of buttons to show
     // let startPage = Math.max(1, currentPage - Math.floor(maxButtons / 2));
-    let startPage = Math.max(1, currentPage - Math.floor(maxButtons-15));
+    let startPage = Math.max(1, currentPage - Math.floor(maxButtons-22));
     const endPage = Math.min(totalPages, startPage + maxButtons - 1);
 
     // Adjust the startPage if we are near the end
